@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог туров - TravelLux</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">🌍 TravelLux</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="catalog.html" class="nav-link">Каталог туров</a></li>
+                <li><a href="cart.html" class="nav-link">Корзина</a></li>
+                <li><a href="auth.html" class="nav-link">Войти</a></li>
+                <li><a href="about.html" class="nav-link">О нас</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Заголовок страницы -->
+    <section class="hero" style="padding: 120px 0 60px;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Каталог туров</h1>
+                <p>Выберите идеальное путешествие из нашей коллекции уникальных туров</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Фильтры -->
+    <section class="section bg-white">
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="mb-3">Фильтры поиска</h3>
+                    <div class="grid grid-4">
+                        <div class="form-group">
+                            <label class="form-label">Направление</label>
+                            <select class="form-control form-select" id="destination-filter">
+                                <option value="">Все направления</option>
+                                <option value="europe">Европа</option>
+                                <option value="asia">Азия</option>
+                                <option value="america">Америка</option>
+                                <option value="africa">Африка</option>
+                                <option value="oceania">Океания</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Продолжительность</label>
+                            <select class="form-control form-select" id="duration-filter">
+                                <option value="">Любая</option>
+                                <option value="short">1-7 дней</option>
+                                <option value="medium">8-14 дней</option>
+                                <option value="long">15+ дней</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Бюджет</label>
+                            <select class="form-control form-select" id="price-filter">
+                                <option value="">Любой</option>
+                                <option value="budget">до 50 000 ₽</option>
+                                <option value="medium">50 000 - 100 000 ₽</option>
+                                <option value="premium">100 000+ ₽</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Тип тура</label>
+                            <select class="form-control form-select" id="type-filter">
+                                <option value="">Все типы</option>
+                                <option value="beach">Пляжный отдых</option>
+                                <option value="adventure">Приключения</option>
+                                <option value="cultural">Культурный</option>
+                                <option value="nature">Природа</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-primary" onclick="applyFilters()">Применить фильтры</button>
+                        <button class="btn btn-secondary" onclick="resetFilters()">Сбросить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Каталог туров -->
+    <section class="section">
+        <div class="container">
+            <div class="grid grid-3" id="tours-container">
+                <!-- Тур 1 -->
+                <div class="card tour-card" data-destination="europe" data-duration="short" data-price="medium" data-type="nature">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Норвегия" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Норвегия: Северное сияние</h3>
+                        <p class="card-text">7 дней среди фьордов и северного сияния. Включает перелет, проживание и экскурсии.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Европа</span> | 
+                            <span class="text-light">📅 7 дней</span> | 
+                            <span class="text-light">🏔️ Природа</span>
+                        </div>
+                        <div class="card-price">89 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(1)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 2 -->
+                <div class="card tour-card" data-destination="asia" data-duration="medium" data-price="premium" data-type="beach">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Мальдивы" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Мальдивы: Райские острова</h3>
+                        <p class="card-text">10 дней релакса на белоснежных пляжах с кристально чистой водой. Все включено.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Азия</span> | 
+                            <span class="text-light">📅 10 дней</span> | 
+                            <span class="text-light">🏖️ Пляжный</span>
+                        </div>
+                        <div class="card-price">159 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(2)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 3 -->
+                <div class="card tour-card" data-destination="asia" data-duration="medium" data-price="premium" data-type="cultural">
+                    <img src="https://images.unsplash.com/photo-1473181488821-2d23949a045a?w=400&h=250&fit=crop" alt="Япония" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Япония: Сакура и традиции</h3>
+                        <p class="card-text">14 дней погружения в культуру Страны восходящего солнца с гидом-японоведом.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Азия</span> | 
+                            <span class="text-light">📅 14 дней</span> | 
+                            <span class="text-light">🏛️ Культурный</span>
+                        </div>
+                        <div class="card-price">119 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(3)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 4 -->
+                <div class="card tour-card" data-destination="europe" data-duration="short" data-price="medium" data-type="nature">
+                    <img src="https://images.unsplash.com/photo-1471919743851-c4df8b6eea9?w=400&h=250&fit=crop" alt="Исландия" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Исландия: Земля льда и огня</h3>
+                        <p class="card-text">8 дней среди гейзеров, водопадов и ледников. Уникальные природные явления.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Европа</span> | 
+                            <span class="text-light">📅 8 дней</span> | 
+                            <span class="text-light">🏔️ Природа</span>
+                        </div>
+                        <div class="card-price">99 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(4)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 5 -->
+                <div class="card tour-card" data-destination="europe" data-duration="short" data-price="medium" data-type="nature">
+                    <img src="https://images.unsplash.com/photo-1544984243-ec57ea16fe25?w=400&h=250&fit=crop" alt="Швейцария" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Швейцария: Альпийские вершины</h3>
+                        <p class="card-text">6 дней в горах с захватывающими видами, чистым воздухом и горнолыжными курортами.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Европа</span> | 
+                            <span class="text-light">📅 6 дней</span> | 
+                            <span class="text-light">🏔️ Природа</span>
+                        </div>
+                        <div class="card-price">79 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(5)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 6 -->
+                <div class="card tour-card" data-destination="asia" data-duration="medium" data-price="budget" data-type="beach">
+                    <img src="https://images.unsplash.com/photo-1493780474015-ba834fd0ce2f?w=400&h=250&fit=crop" alt="Тайланд" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Тайланд: Тропический рай</h3>
+                        <p class="card-text">12 дней экзотики, пляжей и удивительной кухни. Пхукет + экскурсии.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Азия</span> | 
+                            <span class="text-light">📅 12 дней</span> | 
+                            <span class="text-light">🏖️ Пляжный</span>
+                        </div>
+                        <div class="card-price">69 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(6)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 7 -->
+                <div class="card tour-card" data-destination="america" data-duration="medium" data-price="premium" data-type="adventure">
+                    <img src="https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=250&fit=crop" alt="Перу" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Перу: Мачу-Пикчу и Амазонка</h3>
+                        <p class="card-text">12 дней приключений: древние города инков и джунгли Амазонии.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Америка</span> | 
+                            <span class="text-light">📅 12 дней</span> | 
+                            <span class="text-light">🗻 Приключения</span>
+                        </div>
+                        <div class="card-price">129 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(7)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 8 -->
+                <div class="card tour-card" data-destination="africa" data-duration="medium" data-price="premium" data-type="adventure">
+                    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400&h=250&fit=crop" alt="Кения" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Кения: Сафари в саванне</h3>
+                        <p class="card-text">10 дней сафари в национальных парках. Большая пятерка и великая миграция.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Африка</span> | 
+                            <span class="text-light">📅 10 дней</span> | 
+                            <span class="text-light">🗻 Приключения</span>
+                        </div>
+                        <div class="card-price">149 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(8)">Добавить в корзину</button>
+                    </div>
+                </div>
+
+                <!-- Тур 9 -->
+                <div class="card tour-card" data-destination="oceania" data-duration="long" data-price="premium" data-type="beach">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop" alt="Австралия" class="card-img">
+                    <div class="card-content">
+                        <h3 class="card-title">Австралия: Континент чудес</h3>
+                        <p class="card-text">18 дней по Австралии: Сидней, Большой Барьерный риф, Улуру и многое другое.</p>
+                        <div class="mb-2">
+                            <span class="text-light">🌍 Океания</span> | 
+                            <span class="text-light">📅 18 дней</span> | 
+                            <span class="text-light">🏖️ Пляжный</span>
+                        </div>
+                        <div class="card-price">199 900 ₽</div>
+                        <button class="btn btn-primary" onclick="addToCart(9)">Добавить в корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TravelLux</h3>
+                    <p>Ваш надежный партнер в мире путешествий. Создаем незабываемые впечатления уже более 10 лет.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>📞 +7 (495) 123-45-67</p>
+                    <p>📧 info@travellux.ru</p>
+                    <p>📍 Москва, ул. Тверская, д. 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <p><a href="catalog.html">Туры по всему миру</a></p>
+                    <p><a href="#" onclick="return false;">Индивидуальные маршруты</a></p>
+                    <p><a href="#" onclick="return false;">Визовая поддержка</a></p>
+                    <p><a href="#" onclick="return false;">Страхование</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Следите за нами</h3>
+                    <p><a href="#" onclick="return false;">Instagram</a></p>
+                    <p><a href="#" onclick="return false;">Facebook</a></p>
+                    <p><a href="#" onclick="return false;">Telegram</a></p>
+                    <p><a href="#" onclick="return false;">YouTube</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TravelLux. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Фильтрация туров
+        function applyFilters() {
+            const destination = document.getElementById('destination-filter').value;
+            const duration = document.getElementById('duration-filter').value;
+            const price = document.getElementById('price-filter').value;
+            const type = document.getElementById('type-filter').value;
+
+            const cards = document.querySelectorAll('.tour-card');
+            
+            cards.forEach(card => {
+                let show = true;
+                
+                if (destination && card.dataset.destination !== destination) show = false;
+                if (duration && card.dataset.duration !== duration) show = false;
+                if (price && card.dataset.price !== price) show = false;
+                if (type && card.dataset.type !== type) show = false;
+                
+                card.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('destination-filter').value = '';
+            document.getElementById('duration-filter').value = '';
+            document.getElementById('price-filter').value = '';
+            document.getElementById('type-filter').value = '';
+            
+            document.querySelectorAll('.tour-card').forEach(card => {
+                card.style.display = 'block';
+            });
+        }
+
+        // Корзина
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        const tours = {
+            1: {name: "Норвегия: Северное сияние", price: 89900, image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop"},
+            2: {name: "Мальдивы: Райские острова", price: 159900, image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop"},
+            3: {name: "Япония: Сакура и традиции", price: 119900, image: "https://images.unsplash.com/photo-1473181488821-2d23949a045a?w=400&h=250&fit=crop"},
+            4: {name: "Исландия: Земля льда и огня", price: 99900, image: "https://images.unsplash.com/photo-1471919743851-c4df8b6eea9?w=400&h=250&fit=crop"},
+            5: {name: "Швейцария: Альпийские вершины", price: 79900, image: "https://images.unsplash.com/photo-1544984243-ec57ea16fe25?w=400&h=250&fit=crop"},
+            6: {name: "Тайланд: Тропический рай", price: 69900, image: "https://images.unsplash.com/photo-1493780474015-ba834fd0ce2f?w=400&h=250&fit=crop"},
+            7: {name: "Перу: Мачу-Пикчу и Амазонка", price: 129900, image: "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=400&h=250&fit=crop"},
+            8: {name: "Кения: Сафари в саванне", price: 149900, image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400&h=250&fit=crop"},
+            9: {name: "Австралия: Континент чудес", price: 199900, image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=250&fit=crop"}
+        };
+
+        function addToCart(tourId) {
+            const tour = tours[tourId];
+            const existingItem = cart.find(item => item.id === tourId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: tourId,
+                    name: tour.name,
+                    price: tour.price,
+                    image: tour.image,
+                    quantity: 1
+                });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Показать уведомление
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="position: fixed; top: 100px; right: 20px; background: var(--accent-color); color: white; padding: 15px 20px; border-radius: 8px; z-index: 10000; box-shadow: var(--shadow-lg);">
+                    ✅ Тур добавлен в корзину!
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Анимация появления карточек
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.tour-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

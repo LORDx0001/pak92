@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация - TravelLux</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <header class="header">
+        <nav class="nav container">
+            <a href="index.html" class="logo">🌍 TravelLux</a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="catalog.html" class="nav-link">Каталог туров</a></li>
+                <li><a href="cart.html" class="nav-link">Корзина</a></li>
+                <li><a href="auth.html" class="nav-link">Войти</a></li>
+                <li><a href="about.html" class="nav-link">О нас</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Основное содержимое -->
+    <section class="section" style="padding-top: 120px; min-height: 100vh; background: var(--gradient);">
+        <div class="container">
+            <div class="grid" style="grid-template-columns: 1fr; max-width: 800px; margin: 0 auto;">
+                <div class="card" style="overflow: hidden;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 500px;">
+                        <!-- Форма входа -->
+                        <div class="card-content" id="login-form">
+                            <div class="text-center mb-4">
+                                <h2 class="text-primary">Вход в аккаунт</h2>
+                                <p class="text-light">Войдите, чтобы управлять своими заказами</p>
+                            </div>
+                            
+                            <form onsubmit="handleLogin(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" required placeholder="your@email.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Пароль</label>
+                                    <input type="password" class="form-control" required placeholder="Введите пароль">
+                                </div>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox"> Запомнить меня
+                                    </label>
+                                    <a href="#" onclick="showForgotPassword(); return false;" class="text-primary">Забыли пароль?</a>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Войти</button>
+                                
+                                <div class="text-center">
+                                    <p class="text-light">Нет аккаунта? 
+                                        <a href="#" onclick="switchToRegister(); return false;" class="text-primary">Зарегистрироваться</a>
+                                    </p>
+                                </div>
+                                
+                                <div style="text-align: center; margin: 1.5rem 0;">
+                                    <span style="color: var(--text-light); background: white; padding: 0 1rem;">или</span>
+                                    <hr style="margin-top: -12px; border: none; border-top: 1px solid #E2E8F0;">
+                                </div>
+                                
+                                <div style="display: grid; gap: 10px;">
+                                    <button type="button" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="socialLogin('google')">
+                                        🔍 Войти через Google
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; gap: 10px;" onclick="socialLogin('facebook')">
+                                        📘 Войти через Facebook
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Форма регистрации -->
+                        <div class="card-content" id="register-form" style="display: none;">
+                            <div class="text-center mb-4">
+                                <h2 class="text-primary">Регистрация</h2>
+                                <p class="text-light">Создайте аккаунт для удобного бронирования</p>
+                            </div>
+                            
+                            <form onsubmit="handleRegister(event)">
+                                <div class="grid grid-2" style="gap: 1rem;">
+                                    <div class="form-group">
+                                        <label class="form-label">Имя</label>
+                                        <input type="text" class="form-control" required placeholder="Ваше имя">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">Фамилия</label>
+                                        <input type="text" class="form-control" required placeholder="Ваша фамилия">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" required placeholder="your@email.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Телефон</label>
+                                    <input type="tel" class="form-control" required placeholder="+7 (999) 123-45-67">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Пароль</label>
+                                    <input type="password" class="form-control" required placeholder="Минимум 6 символов">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Подтверждение пароля</label>
+                                    <input type="password" class="form-control" required placeholder="Повторите пароль">
+                                </div>
+                                
+                                <div style="margin-bottom: 1.5rem;">
+                                    <label style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <input type="checkbox" required style="margin-top: 3px;">
+                                        <span style="font-size: 0.9rem;">Я согласен с <a href="#" onclick="return false;" class="text-primary">условиями использования</a> и <a href="#" onclick="return false;" class="text-primary">политикой конфиденциальности</a></span>
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: 1rem;">Создать аккаунт</button>
+                                
+                                <div class="text-center">
+                                    <p class="text-light">Уже есть аккаунт? 
+                                        <a href="#" onclick="switchToLogin(); return false;" class="text-primary">Войти</a>
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Правая панель -->
+                        <div style="background: var(--gradient); color: white; padding: 2rem; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                            <div id="auth-promo">
+                                <div style="font-size: 3rem; margin-bottom: 1rem;">🌟</div>
+                                <h3 class="mb-3">Добро пожаловать в TravelLux!</h3>
+                                <p style="margin-bottom: 2rem; opacity: 0.9;">Создайте личный кабинет и получите доступ к:</p>
+                                <ul style="text-align: left; list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 0.5rem;">✅ Истории ваших поездок</li>
+                                    <li style="margin-bottom: 0.5rem;">✅ Персональным скидкам</li>
+                                    <li style="margin-bottom: 0.5rem;">✅ Быстрому оформлению заказов</li>
+                                    <li style="margin-bottom: 0.5rem;">✅ Уведомлениям о спецпредложениях</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TravelLux</h3>
+                    <p>Ваш надежный партнер в мире путешествий. Создаем незабываемые впечатления уже более 10 лет.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>📞 +7 (495) 123-45-67</p>
+                    <p>📧 info@travellux.ru</p>
+                    <p>📍 Москва, ул. Тверская, д. 15</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Услуги</h3>
+                    <p><a href="catalog.html">Туры по всему миру</a></p>
+                    <p><a href="#" onclick="return false;">Индивидуальные маршруты</a></p>
+                    <p><a href="#" onclick="return false;">Визовая поддержка</a></p>
+                    <p><a href="#" onclick="return false;">Страхование</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Следите за нами</h3>
+                    <p><a href="#" onclick="return false;">Instagram</a></p>
+                    <p><a href="#" onclick="return false;">Facebook</a></p>
+                    <p><a href="#" onclick="return false;">Telegram</a></p>
+                    <p><a href="#" onclick="return false;">YouTube</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TravelLux. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        document.querySelector('.nav-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Переключение между формами
+        function switchToRegister() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+            
+            document.getElementById('auth-promo').innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+                <h3 class="mb-3">Присоединяйтесь к нам!</h3>
+                <p style="margin-bottom: 2rem; opacity: 0.9;">Тысячи путешественников уже выбрали TravelLux</p>
+                <div style="text-align: left;">
+                    <p>🎁 Скидка 10% на первый тур</p>
+                    <p>📧 Эксклюзивные предложения</p>
+                    <p>⭐ Накопительная система бонусов</p>
+                </div>
+            `;
+        }
+
+        function switchToLogin() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            
+            document.getElementById('auth-promo').innerHTML = `
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🌟</div>
+                <h3 class="mb-3">Добро пожаловать в TravelLux!</h3>
+                <p style="margin-bottom: 2rem; opacity: 0.9;">Создайте личный кабинет и получите доступ к:</p>
+                <ul style="text-align: left; list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem;">✅ Истории ваших поездок</li>
+                    <li style="margin-bottom: 0.5rem;">✅ Персональным скидкам</li>
+                    <li style="margin-bottom: 0.5rem;">✅ Быстрому оформлению заказов</li>
+                    <li style="margin-bottom: 0.5rem;">✅ Уведомлениям о спецпредложениях</li>
+                </ul>
+            `;
+        }
+
+        // Обработка входа
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            // Показываем индикатор загрузки
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Вход...';
+            submitBtn.disabled = true;
+            
+            // Имитация проверки данных
+            setTimeout(() => {
+                // Сохраняем состояние авторизации
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', event.target.querySelector('input[type="email"]').value);
+                
+                // Показываем успешное уведомление
+                showNotification('✅ Вход выполнен успешно!', 'success');
+                
+                // Перенаправляем на главную
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        }
+
+        // Обработка регистрации
+        function handleRegister(event) {
+            event.preventDefault();
+            
+            const password = event.target.querySelector('input[placeholder*="Минимум"]').value;
+            const confirmPassword = event.target.querySelector('input[placeholder*="Повторите"]').value;
+            
+            if (password !== confirmPassword) {
+                showNotification('❌ Пароли не совпадают!', 'error');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showNotification('❌ Пароль должен содержать минимум 6 символов!', 'error');
+                return;
+            }
+            
+            // Показываем индикатор загрузки
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Создание аккаунта...';
+            submitBtn.disabled = true;
+            
+            // Имитация регистрации
+            setTimeout(() => {
+                // Сохраняем состояние авторизации
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', event.target.querySelector('input[type="email"]').value);
+                localStorage.setItem('userName', event.target.querySelector('input[placeholder*="Ваше имя"]').value);
+                
+                // Показываем успешное уведомление
+                showNotification('🎉 Аккаунт создан успешно! Добро пожаловать!', 'success');
+                
+                // Перенаправляем на главную
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Социальная авторизация
+        function socialLogin(provider) {
+            showNotification(`🔄 Перенаправление на ${provider}...`, 'info');
+            
+            // Имитация социальной авторизации
+            setTimeout(() => {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', `user@${provider}.com`);
+                showNotification('✅ Вход выполнен успешно!', 'success');
+                
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }, 2000);
+        }
+
+        // Восстановление пароля
+        function showForgotPassword() {
+            const email = prompt('Введите ваш email для восстановления пароля:');
+            if (email) {
+                showNotification('📧 Инструкции по восстановлению пароля отправлены на ваш email!', 'success');
+            }
+        }
+
+        // Функция уведомлений
+        function showNotification(message, type = 'info') {
+            const colors = {
+                success: 'var(--accent-color)',
+                error: 'var(--secondary-color)',
+                info: 'var(--primary-color)'
+            };
+            
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="position: fixed; top: 100px; right: 20px; background: ${colors[type]}; color: white; padding: 15px 20px; border-radius: 8px; z-index: 10000; box-shadow: var(--shadow-lg); max-width: 300px;">
+                    ${message}
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 4000);
+        }
+
+        // Проверяем, авторизован ли пользователь
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                // Если пользователь уже авторизован, показываем личный кабинет
+                showUserProfile();
+            }
+        });
+
+        function showUserProfile() {
+            const userEmail = localStorage.getItem('userEmail');
+            const userName = localStorage.getItem('userName') || 'Пользователь';
+            
+            document.querySelector('.section').innerHTML = `
+                <div class="container" style="padding-top: 120px;">
+                    <div class="card" style="max-width: 800px; margin: 0 auto;">
+                        <div class="card-content text-center">
+                            <div style="font-size: 4rem; margin-bottom: 2rem;">👤</div>
+                            <h2 class="mb-3">Личный кабинет</h2>
+                            <p class="text-light mb-4">Добро пожаловать, ${userName}!</p>
+                            
+                            <div class="grid grid-2" style="gap: 2rem; margin: 2rem 0;">
+                                <div class="card">
+                                    <div class="card-content text-center">
+                                        <h4>📧 Email</h4>
+                                        <p>${userEmail}</p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-content text-center">
+                                        <h4>🎯 Статус</h4>
+                                        <p class="text-primary">Активный пользователь</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-3" style="gap: 1rem; margin: 2rem 0;">
+                                <a href="catalog.html" class="btn btn-primary">📋 Каталог туров</a>
+                                <a href="cart.html" class="btn btn-secondary">🛒 Моя корзина</a>
+                                <button class="btn btn-accent" onclick="logout()">🚪 Выйти</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userName');
+            showNotification('👋 До свидания! Вы вышли из аккаунта.', 'info');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        }
+    </script>
+
+    <style>
+        @media (max-width: 768px) {
+            .card > div {
+                grid-template-columns: 1fr !important;
+            }
+            
+            .card > div > div:last-child {
+                order: -1;
+                text-align: center !important;
+                padding: 1rem !important;
+            }
+            
+            .card > div > div:last-child ul {
+                text-align: center !important;
+            }
+        }
+    </style>
+</body>
+</html>
